@@ -5,7 +5,6 @@
 
 Aplikasi web berbasis **React & Supabase** yang dirancang untuk mendigitalkan proses pelaporan kinerja petugas PPSU di Kelurahan Rawamangun. Aplikasi ini mendukung pelaporan lapangan berbasis lokasi (GPS) dan pemantauan real-time oleh admin.
 
-![Status](https://img.shields.io/badge/Status-Ready%20to%20Deploy-success)
 ![Tech](https://img.shields.io/badge/Stack-React%20%7C%20Vite%20%7C%20Supabase-blue)
 
 ---
@@ -54,7 +53,6 @@ spkppsu-rawamangun/
 ├── pages/            # Halaman Aplikasi
 │   ├── admin/        # Dashboard, Kelola Laporan, Kelola User
 │   └── petugas/      # Home, Buat Laporan, Riwayat, Profil
-├── public/           # Aset statis & konfigurasi redirect Netlify
 ├── types.ts          # Definisi Tipe TypeScript (Interface User, Report)
 └── constants.ts      # Mock Data (untuk mode offline)
 ```
