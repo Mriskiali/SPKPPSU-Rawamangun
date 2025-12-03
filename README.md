@@ -154,6 +154,3 @@ Jika Anda **tidak** mengatur file `.env` atau koneksi internet mati, aplikasi ot
 *   **Petugas**: `50422231` / `password123`
 
 ---
-
-## 📄 Lisensi
-MIT License. Dibuat untuk Kelurahan Rawamangun.
