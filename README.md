@@ -49,8 +49,7 @@ Aplikasi web berbasis **React & Supabase** yang dirancang untuk mendigitalkan pr
 spkppsu-rawamangun/
 ├── components/       # Komponen UI Reusable (Layout, Toast, Statistik)
 ├── context/          # State Management Global (Auth, Data, Notifikasi)
-├── Dokumentasi/      # Dokumentasi Teknis, Panduan, dan Laporan Lama
-├── Dokumentasi1/     # Dokumentasi Teknis, Panduan, dan Laporan Baru
+├── Dokumentasi/      # Dokumentasi Teknis, Panduan, dan Laporan
 ├── lib/              # Library dan fungsi bantuan (export laporan)
 ├── pages/            # Halaman Aplikasi
 │   ├── admin/        # Dashboard, Kelola Laporan, Kelola User
