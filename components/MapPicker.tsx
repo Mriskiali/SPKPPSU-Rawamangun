@@ -187,6 +187,7 @@ const MapPicker: React.FC<MapPickerProps> = ({
         <div className="p-4 bg-white border-b border-gray-200 flex justify-between items-center">
           <h3 className="font-bold text-lg text-gray-800">Pilih Lokasi</h3>
           {showLocateButton !== false && (
+            <div className="relative">
             <button 
               onClick={handleLocateMe}
               disabled={isLocating}
@@ -198,6 +199,12 @@ const MapPicker: React.FC<MapPickerProps> = ({
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
             </button>
+            {(!window.isSecureContext && location.protocol !== 'https:' && location.hostname !== 'localhost') && (
+              <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-orange-100 text-orange-700 text-xs px-2 py-1 rounded whitespace-nowrap opacity-90">
+                Hanya di HTTPS
+              </div>
+            )}
+          </div>
           )}
           <button 
             onClick={onClose}

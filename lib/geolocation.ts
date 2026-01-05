@@ -43,8 +43,17 @@ export const requestGeolocation = (
   errorCallback: PositionErrorCallback,
   options: PositionOptions = {}
 ): void => {
+  // Check if we're in a secure context first
+  if (!window.isSecureContext && location.protocol !== 'https:' && location.hostname !== 'localhost') {
+    const error = {
+      code: 2, // POSITION_UNAVAILABLE
+      message: "Geolocation hanya dapat digunakan di konteks yang aman (HTTPS atau localhost)"
+    } as GeolocationPositionError;
+    errorCallback(error);
+    return;
+  }
+
   if (!navigator.geolocation) {
-    // Create a custom error object since GeolocationPositionError is read-only
     const error = {
       code: 2, // POSITION_UNAVAILABLE
       message: "Geolocation tidak didukung oleh browser ini"
@@ -56,8 +65,8 @@ export const requestGeolocation = (
   // Default options with better compatibility
   const defaultOptions: PositionOptions = {
     enableHighAccuracy: false, // More compatible with various devices
-    timeout: 15000,
-    maximumAge: 60000
+    timeout: 10000, // Reduced timeout
+    maximumAge: 30000 // Reduced maximum age
   };
 
   const finalOptions: PositionOptions = { ...defaultOptions, ...options };

@@ -83,6 +83,11 @@ const LocationAutocomplete: React.FC<LocationAutocompleteProps> = ({
       {/* Informasi bahwa user bisa menggunakan tombol untuk lokasi saat ini */}
       <div className="text-xs text-gray-500 mt-1 italic">
         Gunakan tombol untuk mendapatkan lokasi GPS Anda saat ini
+        {(!window.isSecureContext && location.protocol !== 'https:' && location.hostname !== 'localhost') && (
+          <div className="text-xs text-orange-600 mt-1">
+            *Lokasi saat ini hanya tersedia di situs yang aman (HTTPS atau localhost)
+          </div>
+        )}
       </div>
     </div>
   );
