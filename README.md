@@ -80,7 +80,7 @@ Aplikasi ini telah dideploy ke platform Vercel dan dapat diakses secara publik:
 ### 2. Instalasi Dependensi
 ```bash
 # Clone repository (jika dari git)
-git clone ...
+git clone https://github.com/Mriskiali/SPKPPSU-Kelurahan.git
 
 # Masuk ke folder
 cd spkppsu-kelurahan
