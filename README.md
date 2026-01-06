@@ -152,7 +152,7 @@ VITE_SUPABASE_ANON_KEY=key-anon-public-anda
 ```bash
 npm start
 ```
-Akses di browser: `http://localhost:5173`
+Akses di browser: `http://localhost:****`
 
 ---
 
