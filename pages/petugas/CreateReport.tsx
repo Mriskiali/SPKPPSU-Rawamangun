@@ -24,6 +24,15 @@ export const CreateReport: React.FC<{ navigate: (p: string) => void }> = ({ navi
 
   const [imageUrlInput, setImageUrlInput] = useState('');
 
+  const fileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = error => reject(error);
+    });
+  };
+
   const [errors, setErrors] = useState<{
       description?: string;
       location?: string;
@@ -115,19 +124,30 @@ export const CreateReport: React.FC<{ navigate: (p: string) => void }> = ({ navi
       setShowCamera(false);
   };
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const url = URL.createObjectURL(file);
-      setForm(prev => ({ ...prev, image: url }));
-      setErrors(prev => ({ ...prev, image: undefined }));
-      
-      setTimeout(() => URL.revokeObjectURL(url), 3600000);
+      try {
+        const dataUrl = await fileToBase64(file);
+        setForm(prev => ({ ...prev, image: dataUrl }));
+        setErrors(prev => ({ ...prev, image: undefined }));
+      } catch (error) {
+        console.error('Error converting file to base64:', error);
+        const url = URL.createObjectURL(file);
+        setForm(prev => ({ ...prev, image: url }));
+        setErrors(prev => ({ ...prev, image: undefined }));
+        setTimeout(() => URL.revokeObjectURL(url), 3600000);
+      }
     }
   };
 
   const handleUrlSubmit = () => {
       if (imageUrlInput) {
+          if (imageUrlInput.startsWith('blob:')) {
+              alert('Blob URLs tidak didukung. Harap gunakan URL gambar langsung atau unggah berkas gambar.');
+              return;
+          }
+          
           setForm(prev => ({ ...prev, image: imageUrlInput }));
           setErrors(prev => ({ ...prev, image: undefined }));
           setShowUrlInput(false);
