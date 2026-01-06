@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useApp } from '../../context/AppContext';
 import { ReportCategory } from '../../types';
 import MapPicker from '../../components/MapPicker';
-import { compressImage } from '../../utils/helpers';
+import { compressImage, getDataUrlSize } from '../../utils/helpers';
 import { Camera, MapPin, Send, AlertCircle, X, Check, Crosshair, Link as LinkIcon, Image as ImageIcon, Trash2, Map as MapIcon } from 'lucide-react';
 
 export const CreateReport: React.FC<{ navigate: (p: string) => void }> = ({ navigate }) => {
@@ -112,16 +112,21 @@ export const CreateReport: React.FC<{ navigate: (p: string) => void }> = ({ navi
               let url = canvas.toDataURL('image/jpeg', 0.7);
               
               try {
-                  let compressedUrl = await compressImage(url, 800, 600, 0.7);
+                  let compressedUrl = await compressImage(url, 600, 450, 0.6);
                   
-                  const sizeInBytes = atob(compressedUrl.split(',')[1]).length;
-                  if (sizeInBytes > (2 * 1024 * 1024)) {
-                      compressedUrl = await compressImage(url, 600, 450, 0.6);
+                  const sizeInBytes = getDataUrlSize(compressedUrl);
+                  if (sizeInBytes > (500 * 1024)) {
+                      compressedUrl = await compressImage(url, 400, 300, 0.5);
                   }
                   
-                  const sizeAfterFirstCompression = atob(compressedUrl.split(',')[1]).length;
-                  if (sizeAfterFirstCompression > (1 * 1024 * 1024)) {
-                      compressedUrl = await compressImage(url, 400, 300, 0.5);
+                  const sizeAfterCompression = getDataUrlSize(compressedUrl);
+                  if (sizeAfterCompression > (200 * 1024)) {
+                      compressedUrl = await compressImage(url, 300, 225, 0.4);
+                  }
+                  
+                  const sizeAfterSecondCompression = getDataUrlSize(compressedUrl);
+                  if (sizeAfterSecondCompression > (100 * 1024)) {
+                      compressedUrl = await compressImage(url, 200, 150, 0.3);
                   }
                   
                   setForm(prev => ({ ...prev, image: compressedUrl }));

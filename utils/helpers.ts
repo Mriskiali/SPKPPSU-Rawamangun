@@ -145,3 +145,16 @@ export const compressImage = (dataUrl: string, maxWidth: number = 800, maxHeight
     img.src = dataUrl;
   });
 };
+
+
+export const getDataUrlSize = (dataUrl: string): number => {
+  try {
+    const base64 = dataUrl.split(',')[1];
+    if (!base64) return 0;
+    
+    return (base64.length * 3) / 4;
+  } catch (error) {
+    console.error('Error calculating data URL size:', error);
+    return 0;
+  }
+};
